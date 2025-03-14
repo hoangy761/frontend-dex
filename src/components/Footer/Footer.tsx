@@ -4,10 +4,9 @@ import { DiscordIcon, GoogleDocIcon, NewTwitterIcon, TelegramIcon } from 'hugeic
 
 const Footer = () => {
   return (
-    <div className=" bg-black w-auto m-1 rounded-t-md">
-      <div className="border border-white-1 container mx-auto"></div>
-      <div className=" container mx-auto flex justify-between py-10 items-center">
-        <ul className=" md:space-x-4 md:flex sm:grid grid-cols-4">
+    <div className=" bg-black w-auto mx-1 rounded-t-md">
+      <div className="container mx-auto flex justify-between items-center">
+        <ul className="md:space-x-4 md:flex sm:grid grid-cols-4">
           <li>
             <Button text className="underline" to="#" icon={<NewTwitterIcon />}>
               X.com

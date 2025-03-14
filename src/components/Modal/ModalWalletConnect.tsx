@@ -8,12 +8,12 @@ const ModalWalletConnect: React.FC = () => {
   const { wallets, connectWallet, isPending, errorMessage, selectedWallet, clearError } = useWalletProvider();
   const { showModal, closeModal } = useModalContext();
 
-  if (!showModal) return null;
+  if (!showModal) return <></>;
 
   return (
     <>
       {!selectedWallet && (
-        <div className="modal fixed inset-0 flex items-center justify-center bg-black-50 z-20 mx-4">
+        <div className="modal fixed inset-0 flex items-center justify-center bg-black-50 z-20 mx-4 bg-black">
           {/* <div className="modal absolute left-1/3 bg-black-4 border border-white-1 rounded-md"> */}
           <div className="modal-content flex flex-col-reverse md:flex-row md:flex  absolute  bg-black-2 border border-white-1 rounded-2xl">
             <div className="p-5 relative">

@@ -27,7 +27,7 @@ export async function web3Sign(signer: string, signature: string) {
 }
 export async function getTokenByAccessToken(_refreshToken: string) {
   try {
-    const res = await axios.post(`${SERVER_URL}/developer/auth/refresh`, { _refreshToken });
+    const res = await axios.post(`${SERVER_URL}/developer/auth/refresh`, { refreshToken: _refreshToken });
 
     if (res.status === 201) {
       const data = res.data.data;

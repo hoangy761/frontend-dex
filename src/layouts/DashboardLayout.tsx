@@ -1,6 +1,6 @@
 import React from 'react';
 import Footer from '~/components/Footer';
-import Header from '~/components/Header';
+import Sidebar from '~/components/Header/Sidebar';
 import ModalWalletConnect from '~/components/Modal/ModalWalletConnect';
 
 interface Props {
@@ -9,9 +9,11 @@ interface Props {
 
 const DashboardLayout: React.FC<Props> = ({ children }) => {
   return (
-    <div className="bg-slate-700">
-      <Header />
-      <main className="w-auto m-1 rounded-md px-16 bg-slate-500">{children}</main>
+    <div className="bg-slate-700 min-h-screen flex flex-col">
+      <div className="w-full h-full flex-1 flex">
+        <Sidebar />
+        <main className="flex-1 m-1 overflow-y-scroll">{children}</main>
+      </div>
       <ModalWalletConnect />
       <Footer />
     </div>
