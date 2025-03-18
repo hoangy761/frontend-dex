@@ -105,3 +105,32 @@ export async function updateDeveloperProfile(profileData: { name: string }) {
     }
   }
 }
+
+export async function getAppsByDeveloper(page: number, limit: number) {
+  try {
+    const response = await axiosAuthenticated.get(`${SERVER_URL}/developer/apps`, {
+      params: {
+        page,
+        limit,
+      },
+    });
+
+    if (response.status === 200) {
+      return response.data.data;
+    }
+
+    return null;
+  } catch (error: unknown) {
+    if (isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        throw new Error('Your session has expired. Please login again');
+      }
+
+      throw new Error(`Failed to fetch apps: ${error.response?.data?.message || error.message}`);
+    } else if (error instanceof Error) {
+      throw new Error(`Error: ${error.message}`);
+    } else {
+      throw new Error('An unknown error occurred while fetching apps');
+    }
+  }
+}
