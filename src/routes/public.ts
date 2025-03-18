@@ -6,6 +6,7 @@ import Vault from '~/pages/Vault';
 import FistStep from '~/pages/NestJS';
 import { Home as DashboardIndex } from '~/pages/Dashboard';
 import DashboardLayout from '~/layouts/DashboardLayout';
+import Profile from '~/pages/Profile/Profile';
 type route = {
   path: string;
   component: React.ComponentType;
@@ -19,6 +20,7 @@ const publicRoutes: route[] = [
   { path: '/liquidity', component: Liquidity },
   { path: '/nestJS', component: FistStep },
   { path: '/dashboard', component: DashboardIndex, layout: DashboardLayout },
+  { path: '/profile', component: Profile, layout: DashboardLayout },
 ];
 
 export default publicRoutes;
