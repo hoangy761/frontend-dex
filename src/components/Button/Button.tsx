@@ -139,7 +139,7 @@ ${info ? 'bg-info text-white' : ''}
         {...props}
       >
         {icon && !loading && <span className={`${children ? 'mr-2' : ''}`}>{icon}</span>}
-        <span>{children}</span>
+        <span className={`${icon || iconRight ? '' : `w-full`}`}>{children}</span>
         {iconRight && !loading && <span className={`${children ? 'ml-2' : ''}`}>{iconRight}</span>}
         {loading && <span>Wait</span>}
       </Comp>

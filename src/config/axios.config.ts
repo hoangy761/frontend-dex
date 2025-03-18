@@ -12,7 +12,7 @@ const instance = axios.create({
 instance.interceptors.request.use(async (config) => {
   // Initialize headers if not already present
   const refreshToken = Cookies.get(REFRESH_TOKEN);
-  const accessToken = Cookies.get(ACCESS_TOKEN);
+  let accessToken = Cookies.get(ACCESS_TOKEN);
   if (!refreshToken) {
     throw new Error('Not logged in........');
   }
@@ -22,7 +22,7 @@ instance.interceptors.request.use(async (config) => {
     try {
       const res = await getTokenByAccessToken(refreshToken);
       if (res.status === 201) {
-        console.log('Get access token success');
+        accessToken = res.data.data.accessToken;
       } else {
         throw new Error(res.data);
       }
@@ -30,6 +30,7 @@ instance.interceptors.request.use(async (config) => {
       throw new Error(typeof error === 'string' ? error : 'Error get access token');
     }
   }
+  if (!accessToken) throw new Error('Get accessToken from refreshToken failed');
 
   config.headers = config.headers || {};
   let authToken = {};
