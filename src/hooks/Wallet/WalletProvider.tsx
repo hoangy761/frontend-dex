@@ -1,9 +1,10 @@
 import { ethers } from 'ethers';
 import { StreamProvider } from '@metamask/providers';
 import React, { PropsWithChildren, createContext, useCallback, useEffect, useState } from 'react';
-import { LOGIN_MESSAGE } from '~/constants/string';
-import { getNonce, web3Sign } from '~/api/developer/auth.developer';
+import { LOGIN_MESSAGE, REFRESH_TOKEN } from '~/constants/string';
+import { getNonce, web3Sign } from '~/api/developer/auth.developer.api';
 import { removeAccessTokenAndRefreshToken } from '~/common/cookies';
+import Cookies from 'js-cookie';
 
 type SelectedAccountByWallet = Record<string, string | null>;
 
@@ -77,7 +78,12 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }) => {
     const savedSelectedAccountByWalletRdns = localStorage.getItem('selectedAccountByWalletRdns');
     const savedChainId = localStorage.getItem('chainId');
     const savedAddress = localStorage.getItem('address');
-    const saveIsLogin = localStorage.getItem('isLogin');
+    const saveRefreshToken = Cookies.get(REFRESH_TOKEN);
+    console.log('saveRefreshToken::::', saveRefreshToken);
+
+    if (saveRefreshToken) {
+      setIsLogin(true);
+    } else setIsLogin(false);
 
     if (savedSelectedAccountByWalletRdns) {
       setSelectedAccountByWalletRdns(JSON.parse(savedSelectedAccountByWalletRdns));
@@ -94,14 +100,6 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }) => {
       } else {
         const _provider = ethers.getDefaultProvider();
         setProvider(_provider);
-      }
-    }
-    if (saveIsLogin) {
-      try {
-        setIsLogin(Boolean(saveIsLogin));
-      } catch (error) {
-        console.log('error: ', error);
-        setIsLogin(false);
       }
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
@@ -222,7 +220,6 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }) => {
       localStorage.removeItem('chainId');
       localStorage.removeItem('provider');
       localStorage.removeItem('signer');
-      localStorage.removeItem('isLogin');
       removeAccessTokenAndRefreshToken();
       setIsLogin(false);
       try {

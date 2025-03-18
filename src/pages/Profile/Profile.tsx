@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getDeveloperProfile, updateDeveloperProfile } from '~/api/developer/auth.developer';
+import { getDeveloperProfile, updateDeveloperProfile } from '~/api/developer/auth.developer.api';
 import { useWalletProvider } from '~/hooks/Wallet/useWalletProvider';
 
 type DeveloperProfile = {

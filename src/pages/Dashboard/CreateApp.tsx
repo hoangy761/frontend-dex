@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createApiKey } from '~/api/developer/app.developer';
+import { createApiKey } from '~/api/developer/app.developer.api';
 import { showToast } from '~/common/toastCustom';
 import Button from '~/components/Button';
 import CustomModal from '~/components/Modal/Modal';
@@ -8,6 +8,7 @@ function CreateApp() {
   const [isModalModal, setIsModalOpen] = useState<boolean>(false);
   const [nameError, setNameError] = useState<string>('');
   const [name, setName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
 
   const isValidData = (): boolean => {
     if (!name) {
@@ -23,7 +24,7 @@ function CreateApp() {
     const _toastId = showToast.loading('Create app......');
     try {
       // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-      const response = await createApiKey({ name });
+      const response = await createApiKey({ name, description });
       showToast.updateSucess(_toastId, 'Create app successfully!!!!');
     } catch (error) {
       showToast.updateError(_toastId, 'Create app failed!!!!');
@@ -66,6 +67,7 @@ function CreateApp() {
               id="description"
               className="text-black rounded-md w-full h-10 px-4 focus:outline-none"
               type="text"
+              onChange={(e) => setDescription(e.target.value)}
             ></input>
           </div>
         </div>

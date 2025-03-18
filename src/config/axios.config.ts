@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { getTokenByAccessToken } from '~/api/developer/auth.developer';
+import { getTokenByAccessToken } from '~/api/developer/auth.developer.api';
 
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants/string';
 import { SERVER_URL } from './api.config';
