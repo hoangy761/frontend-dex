@@ -7,6 +7,7 @@ import FistStep from '~/pages/NestJS';
 import { Home as DashboardIndex } from '~/pages/Dashboard';
 import DashboardLayout from '~/layouts/DashboardLayout';
 import Profile from '~/pages/Profile/Profile';
+import { DeveloperApp } from '~/pages/DeveloperApp';
 type route = {
   path: string;
   component: React.ComponentType;
@@ -21,6 +22,7 @@ const publicRoutes: route[] = [
   { path: '/nestJS', component: FistStep },
   { path: '/dashboard', component: DashboardIndex, layout: DashboardLayout },
   { path: '/profile', component: Profile, layout: DashboardLayout },
+  { path: '/dashboard/apps/:id', component: DeveloperApp, layout: DashboardLayout },
 ];
 
 export default publicRoutes;

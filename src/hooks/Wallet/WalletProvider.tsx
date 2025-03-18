@@ -79,7 +79,6 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }) => {
     const savedChainId = localStorage.getItem('chainId');
     const savedAddress = localStorage.getItem('address');
     const saveRefreshToken = Cookies.get(REFRESH_TOKEN);
-    console.log('saveRefreshToken::::', saveRefreshToken);
 
     if (saveRefreshToken) {
       setIsLogin(true);

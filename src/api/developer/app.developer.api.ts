@@ -15,3 +15,13 @@ export async function createApiKey(body: CreateAppType) {
     }
   }
 }
+
+export async function getAppByAppId(_id: string) {
+  try {
+    const res = await axiosAuthenticated.get(`${SERVER_URL}/developer/apps/${_id}`);
+    if (res.status === 200) return res.data.data;
+    else return null;
+  } catch {
+    throw new Error('errr:::::::: get app failed');
+  }
+}
