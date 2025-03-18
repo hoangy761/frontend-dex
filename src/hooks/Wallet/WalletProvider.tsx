@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 import { StreamProvider } from '@metamask/providers';
 import React, { PropsWithChildren, createContext, useCallback, useEffect, useState } from 'react';
 import { LOGIN_MESSAGE } from '~/constants/string';
-import { web3Sign } from '~/api/developer/auth.developer';
+import { getNonce, web3Sign } from '~/api/developer/auth.developer';
 import { removeAccessTokenAndRefreshToken } from '~/common/cookies';
 
 type SelectedAccountByWallet = Record<string, string | null>;
@@ -192,7 +192,9 @@ export const WalletProvider: React.FC<PropsWithChildren> = ({ children }) => {
       if (!isLogin && _signer) {
         try {
           const _address = await _signer.getAddress();
-          const message = LOGIN_MESSAGE();
+          const nonce = await getNonce(_address);
+          const message = LOGIN_MESSAGE(nonce);
+
           const signature = await _signer.signMessage(message);
           // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
           const res = await web3Sign(_address, signature);

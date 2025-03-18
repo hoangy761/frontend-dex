@@ -15,7 +15,8 @@ import {
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Button from '~/components/Button';
-import User from './User';
+import User from '../Header/User';
+import Footer from './Footer';
 interface routeNav {
   to: string;
   icon: React.ReactNode;
@@ -66,6 +67,7 @@ const Sidebar = () => {
           ))}
         </ul>
         <User />
+        <Footer />
       </div>
     </nav>
   );

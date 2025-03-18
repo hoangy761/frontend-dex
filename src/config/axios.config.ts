@@ -19,11 +19,15 @@ instance.interceptors.request.use(async (config) => {
 
   if (!accessToken) {
     //call lấy token khi accesstoken hết hạn
-    const res = await getTokenByAccessToken(refreshToken);
-    if (res.status === 201) {
-      console.log('oke');
-    } else {
-      console.log('flai');
+    try {
+      const res = await getTokenByAccessToken(refreshToken);
+      if (res.status === 201) {
+        console.log('Get access token success');
+      } else {
+        throw new Error(res.data);
+      }
+    } catch (error) {
+      throw new Error(typeof error === 'string' ? error : 'Error get access token');
     }
   }
 
@@ -32,7 +36,6 @@ instance.interceptors.request.use(async (config) => {
   if (accessToken) {
     authToken = accessToken.replace(/"/g, '');
   }
-  console.log('Auth::::::::::', authToken);
 
   if (authToken) {
     config.headers['Authorization'] = `Bearer ${authToken}`;

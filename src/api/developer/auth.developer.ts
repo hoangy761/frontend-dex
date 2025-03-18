@@ -3,9 +3,19 @@ import Cookies from 'js-cookie';
 import { SERVER_URL } from '~/config/api.config';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants/string';
 
-export async function web3Sign(signer: string, signature: string) {
+export async function getNonce(_singer: string) {
   try {
-    const res = await axios.post(`${SERVER_URL}/developer/auth/web3`, { signer, signature });
+    const res = await axios.get(`${SERVER_URL}/developer/nonce?signer=${_singer}`);
+    if (res.status === 200) {
+      return res.data.data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+export async function web3Sign(_signer: string, _signature: string) {
+  try {
+    const res = await axios.post(`${SERVER_URL}/developer/auth/web3`, { signer: _signer, signature: _signature });
 
     if (res.status === 201) {
       const data = res.data.data;

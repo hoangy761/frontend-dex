@@ -1,7 +1,7 @@
 import React from 'react';
-import Footer from '~/components/Footer';
-import Sidebar from '~/components/Header/Sidebar';
+// import Footer from '~/components/Footer';
 import ModalWalletConnect from '~/components/Modal/ModalWalletConnect';
+import { Sidebar } from '~/components/Sidebar';
 
 interface Props {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ const DashboardLayout: React.FC<Props> = ({ children }) => {
         <main className="flex-1 m-1 overflow-y-scroll">{children}</main>
       </div>
       <ModalWalletConnect />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { SERVER_URL } from '~/config/api.config';
 
 export async function createApiKey(_name: string) {
   try {
-    const res = await axiosAuthenticated.post(`${SERVER_URL}/developer/api-key`, { _name });
+    const res = await axiosAuthenticated.post(`${SERVER_URL}/developer/apps`, { name: _name });
 
     return res;
   } catch (error: unknown) {
