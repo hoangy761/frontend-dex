@@ -11,6 +11,7 @@ import {
   Menu01Icon,
   CodeFolderIcon,
   SidebarBottomIcon,
+  UserIcon,
 } from 'hugeicons-react';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -29,7 +30,7 @@ const Sidebar = () => {
   ];
   const routesSidebarBottom: routeNav[] = [
     { to: '/stats', name: 'Docs', icon: <AnalysisTextLinkIcon /> },
-    { to: '/dashboard', name: 'Setting', icon: <CodeFolderIcon /> },
+    { to: '/profile', name: 'Profile', icon: <UserIcon /> },
   ];
   const path = useLocation();
   return (
