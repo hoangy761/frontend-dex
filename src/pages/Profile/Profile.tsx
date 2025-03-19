@@ -1,5 +1,6 @@
+import { table } from 'console';
 import React, { useEffect, useState } from 'react';
-import { getDeveloperProfile, updateDeveloperProfile } from '~/api/developer/auth.developer.api';
+import { getAppsByDeveloper, getDeveloperProfile, updateDeveloperProfile } from '~/api/developer/auth.developer.api';
 import { useWalletProvider } from '~/hooks/Wallet/useWalletProvider';
 
 type DeveloperProfile = {
@@ -10,9 +11,19 @@ type DeveloperProfile = {
   isActive: boolean;
 };
 
+type App = {
+  id: string;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+  whiteListDomains?: string[];
+  isActive: boolean;
+};
+
 const Profile = () => {
-  const { selectedAccount, isLogin, signer } = useWalletProvider();
+  const { selectedAccount, isLogin } = useWalletProvider();
   const [profile, setProfile] = useState<DeveloperProfile | null>(null);
+  const [apps, setApps] = useState<App[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -36,6 +47,25 @@ const Profile = () => {
     };
 
     fetchProfileData();
+  }, [isLogin]);
+
+  useEffect(() => {
+    const fetchAppsData = async () => {
+      if (isLogin) {
+        try {
+          setLoading(true);
+          setError(null);
+          const data = await getAppsByDeveloper(1, 10);
+          setApps(data.apps);
+        } catch (err) {
+          setError(err.message || 'Failed to fetch apps data');
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchAppsData();
   }, [isLogin]);
 
   const handleSubmit = async () => {
@@ -74,6 +104,7 @@ const Profile = () => {
   if (error) {
     return <div className="text-center text-red-500">Error: {error}</div>;
   }
+  if (apps.length > 0) console.log('apps', apps[0].whiteListDomains);
 
   return (
     <div className="p-4">
@@ -81,7 +112,7 @@ const Profile = () => {
 
       {updateMessage && <div className="mb-4 p-2 bg-green-100 text-green-700 rounded">{updateMessage}</div>}
 
-      <div className=" rounded-lg shadow p-6 bg-slate-50 w-full">
+      <div className=" rounded-lg shadow p-6 bg-slate-300 w-full">
         <div className="mb-4 text-black">
           <span className="font-semibold ">Address:</span> {selectedAccount}
         </div>
@@ -120,12 +151,49 @@ const Profile = () => {
               </button>
             )}
             <button
-              onClick={() => setIsEditing(true)}
+              onClick={() => setIsEditing(!isEditing)}
               className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             >
               Edit Profile
             </button>
           </div>
+        )}
+      </div>
+
+      <div className="text-center font-bold text-2xl my-6"> Developer Apps</div>
+
+      <div className=" rounded-lg shadow p-6 bg-slate-300 w-full">
+        {apps.length > 0 ? (
+          <table className="min-w-full bg-slate-50 text-black">
+            <thead>
+              <tr>
+                <th className="py-2 px-4 border-b">ID</th>
+                <th className="py-2 px-4 border-b">Name</th>
+                <th className="py-2 px-4 border-b">Created At</th>
+                <th className="py-2 px-4 border-b">Updated At</th>
+                <th className="py-2 px-4 border-b">White List Domains</th>
+                <th className="py-2 px-4 border-b">Is Active</th>
+              </tr>
+            </thead>
+            <tbody>
+              {apps.map((app) => (
+                <tr key={app.id}>
+                  <td className="py-2 px-4 border-b">{app.id}</td>
+                  <td className="py-2 px-4 border-b">{app.name}</td>
+                  <td className="py-2 px-4 border-b">{new Date(app.createdAt).toLocaleString()}</td>
+                  <td className="py-2 px-4 border-b">{new Date(app.updatedAt).toLocaleString()}</td>
+                  <td className="py-2 px-4 border-b">
+                    {app?.whiteListDomains != undefined && app.whiteListDomains.length > 0
+                      ? app.whiteListDomains.join(', ')
+                      : 'No domains'}
+                  </td>
+                  <td className="py-2 px-4 border-b">{app.isActive ? 'True' : 'False'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <></>
         )}
       </div>
     </div>
