@@ -30,7 +30,7 @@ function AppDetail({ app }: AppDetailProps) {
                 <th className="text-start">name</th>
                 <th className="text-start">key</th>
                 <th className="text-start">Number users</th>
-                <th className="text-start">Updated</th>
+                <th className="text-start">Created At</th>
                 <th className="text-start">Action</th>
               </tr>
             </thead>
