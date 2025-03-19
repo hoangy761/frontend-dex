@@ -29,7 +29,7 @@ function DeveloperApp() {
   return (
     <div>
       <Header />
-      {isLoading ? <Loading /> : <AppDetail app={app} />}
+      {isLoading ? <Loading /> : <AppDetail app={app} setApp={setApp} />}
       <span>{errorMessage}</span>
     </div>
   );

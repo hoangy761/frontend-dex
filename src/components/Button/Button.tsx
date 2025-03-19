@@ -135,7 +135,7 @@ ${info ? 'bg-info text-white' : ''}
       <Comp
         ref={ref}
         target={target}
-        className={`${_outline} ${_color} ${text ? 'hover:underline' : ''} ${_textColor} ${font} ${spacing} ${className} ${_rounded}  ${large ? 'w-full' : ''}  flex align-middle  ${left ? 'items-start' : 'items-center'} ${right ? 'items-end' : 'items-center'} select-none hover:bg-opacity-80 ${disable ? 'pointer-events-none cursor-not-allowed bg-opacity-50' : ''}`}
+        className={`${_outline} ${_color} ${text ? 'hover:underline' : ''} ${_textColor} ${font} ${spacing} ${className} ${_rounded}  ${large ? 'w-full' : ''}  flex align-middle  ${left ? 'items-start' : 'items-center'} ${right ? 'items-end' : 'items-center'} select-none hover:bg-opacity-80 ${disable ? 'pointer-events-none cursor-not-allowed bg-opacity-50' : ''} ${children ? `` : 'w-10 aspect-square flex justify-center'}`}
         {...props}
       >
         {icon && !loading && <span className={`${children ? 'mr-2' : ''}`}>{icon}</span>}

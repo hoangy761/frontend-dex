@@ -22,7 +22,7 @@ const publicRoutes: route[] = [
   { path: '/nestJS', component: FistStep },
   { path: '/dashboard', component: DashboardIndex, layout: DashboardLayout },
   { path: '/profile', component: Profile, layout: DashboardLayout },
-  { path: '/dashboard/apps/:id', component: DeveloperApp, layout: DashboardLayout },
+  { path: '/profile/apps/:id', component: DeveloperApp, layout: DashboardLayout },
 ];
 
 export default publicRoutes;

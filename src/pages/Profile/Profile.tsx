@@ -1,6 +1,6 @@
-import { table } from 'console';
 import React, { useEffect, useState } from 'react';
 import { getAppsByDeveloper, getDeveloperProfile, updateDeveloperProfile } from '~/api/developer/auth.developer.api';
+import Button from '~/components/Button';
 import { useWalletProvider } from '~/hooks/Wallet/useWalletProvider';
 
 type DeveloperProfile = {
@@ -169,10 +169,11 @@ const Profile = () => {
               <tr>
                 <th className="py-2 px-4 border-b">ID</th>
                 <th className="py-2 px-4 border-b">Name</th>
-                <th className="py-2 px-4 border-b">Created At</th>
+                {/* <th className="py-2 px-4 border-b">Created At</th> */}
                 <th className="py-2 px-4 border-b">Updated At</th>
                 <th className="py-2 px-4 border-b">White List Domains</th>
                 <th className="py-2 px-4 border-b">Is Active</th>
+                <th className="py-2 px-4 border-b">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -180,7 +181,7 @@ const Profile = () => {
                 <tr key={app.id}>
                   <td className="py-2 px-4 border-b">{app.id}</td>
                   <td className="py-2 px-4 border-b">{app.name}</td>
-                  <td className="py-2 px-4 border-b">{new Date(app.createdAt).toLocaleString()}</td>
+                  {/* <td className="py-2 px-4 border-b">{new Date(app.createdAt).toLocaleString()}</td> */}
                   <td className="py-2 px-4 border-b">{new Date(app.updatedAt).toLocaleString()}</td>
                   <td className="py-2 px-4 border-b">
                     {app?.whiteListDomains != undefined && app.whiteListDomains.length > 0
@@ -188,6 +189,11 @@ const Profile = () => {
                       : 'No domains'}
                   </td>
                   <td className="py-2 px-4 border-b">{app.isActive ? 'True' : 'False'}</td>
+                  <td className="py-2 px-4 border-b">
+                    <Button text to={`/profile/apps/${app.id}`}>
+                      Detail
+                    </Button>
+                  </td>
                 </tr>
               ))}
             </tbody>

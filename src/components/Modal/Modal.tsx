@@ -26,7 +26,7 @@ const CustomModal: React.FC<CustomModalType> = ({
         <div className="modal fixed inset-0 flex items-center justify-center bg-black-50 z-20 bg-white bg-opacity-30 w-full">
           <div className="modal-content absolute  bg-black border border-white-1 rounded-md min-w-96">
             <div className="p-5 relative space-y-4 w-full">
-              <header className=" w-full flex justify-between ">
+              <header className=" w-full flex justify-between items-center">
                 <p className="text-lg md:text-2xl ">{title}</p>
 
                 <Button icon={<Cancel01Icon />} error roundedMd onClick={handleCloseModal}></Button>
