@@ -1,3 +1,2 @@
-import Home from './Home';
-
-export { Home };
+import Overviews from '../Overviews/Overviews';
+export { Overviews };

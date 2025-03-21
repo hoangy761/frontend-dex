@@ -26,7 +26,7 @@ const Navbar = () => {
     // { to: '/dao', name: 'Dao', icon: <PromotionIcon /> },
     // { to: '/staking', name: 'Staking', icon: <Bitcoin03Icon /> },
     // { to: '/stats', name: 'Stats', icon: <AnalysisTextLinkIcon /> },
-    { to: '/dashboard', name: 'Dashboard', icon: <CodeFolderIcon /> },
+    { to: '/overview', name: 'Overview', icon: <CodeFolderIcon /> },
   ];
   const path = useLocation();
   const [openTippy, setOpenTippy] = useState<boolean>(false);

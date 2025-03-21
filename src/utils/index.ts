@@ -1,5 +1,3 @@
-import { formatAddress, formatBalance, formatChainAsNum } from "./format";
-
-export {
-    formatAddress, formatBalance, formatChainAsNum
-}
+import { formatAddress, formatBalance, formatChainAsNum } from './string.format.utils';
+import { formatDate } from './time.format.utils';
+export { formatAddress, formatBalance, formatChainAsNum, formatDate };

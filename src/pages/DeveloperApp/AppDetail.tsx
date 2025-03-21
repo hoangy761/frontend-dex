@@ -2,32 +2,16 @@ import { Add01Icon, Delete02Icon } from 'hugeicons-react';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteAppByAppId, updateAppByAppId } from '~/api/developer/app.developer.api';
-import { UpdateAppInterface, WhitelistDomainsInterface } from '~/api/interfaces/app.interface';
+import { AppDetailInterface, UpdateAppInterface, WhitelistDomainsInterface } from '~/api/interfaces/app.interface';
 import Button from '~/components/Button';
 import CustomModal from '~/components/Modal/Modal';
-type ApiKeyType = {
-  id: string;
-  key: string;
-  accessLevel: string;
-  type: string;
-};
-export type AppDetailType = {
-  id: string;
-  isActve: boolean;
-  name: string;
-  description: string;
-  apiKey: ApiKeyType;
-  createdAt: string;
-  whitelistDomains: WhitelistDomainsInterface[];
-};
-type AppDetailProps = {
-  app: AppDetailType | undefined;
-  setApp: (_app: AppDetailType) => void;
-};
-
+import { formatAddress } from '~/utils';
+interface AppDetailProps {
+  app: AppDetailInterface | undefined;
+  setApp: (_app: AppDetailInterface) => void;
+}
 // eslint-disable-next-line react/prop-types
 function AppDetail({ app, setApp }: AppDetailProps) {
-  const [numberOfDomain, setNumberOfDomain] = useState<number>(1);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [name, setName] = useState<string>();
   const [description, setDescription] = useState<string>();
@@ -37,7 +21,9 @@ function AppDetail({ app, setApp }: AppDetailProps) {
     if (app) {
       setName(app.name);
       setDescription(app.description);
-      setWhitelistDomains(app.whitelistDomains || [{ domain: '' }]);
+      if (app.whitelistDomains.length !== 0 || whitelistDomains.length === 0) {
+        setWhitelistDomains(app.whitelistDomains);
+      }
     }
   }, [app]);
 
@@ -45,7 +31,7 @@ function AppDetail({ app, setApp }: AppDetailProps) {
     try {
       const res = await deleteAppByAppId(_id);
       if (res.data.success) {
-        navigate('/profile');
+        navigate('/overviews');
       }
     } catch (error) {
       console.log(error);
@@ -64,17 +50,30 @@ function AppDetail({ app, setApp }: AppDetailProps) {
       };
       const res = await updateAppByAppId(app.id, body);
       if (res.data.success) {
-        setApp(res.data.data as AppDetailType);
+        setApp(res.data.data as AppDetailInterface);
         setIsModalOpen(false);
       }
     } catch (error) {
       console.log(error);
     }
   }
+  function isInitWhitelistDomainsNull() {
+    if (whitelistDomains.length === 0) return true;
+    return false;
+  }
   function handleUpdateWhitelistDomains(_index: number, _value: string) {
-    setWhitelistDomains((prevDomains) =>
-      prevDomains.map((item, index) => (index === _index ? { ...item, domain: _value } : item)),
-    );
+    if (isInitWhitelistDomainsNull()) {
+      console.log('init');
+
+      const newDomain = { domain: _value };
+      setWhitelistDomains((prevDomains) => [...prevDomains, newDomain]);
+    } else {
+      setWhitelistDomains((prevDomains) =>
+        prevDomains.map((item, index) => (index === _index ? { ...item, domain: _value } : item)),
+      );
+    }
+
+    console.log('whitelistDomains', whitelistDomains[_index], _index);
   }
   function handleDeleteWhitelistDomain(_index: number) {
     setWhitelistDomains((prevDomains) => prevDomains.filter((_, index) => index !== _index));
@@ -91,13 +90,13 @@ function AppDetail({ app, setApp }: AppDetailProps) {
   return (
     <div>
       {app && (
-        <div className="bg-black rounded-md mt-1 p-6">
+        <div className="p-6">
           <table className="w-full ">
             <thead className="border-b-2 rounded-md border-slate-700">
               <tr>
                 <th className="text-start">name</th>
                 <th className="text-start">key</th>
-                <th className="text-start">Number users</th>
+                <th className="text-start">Domains</th>
                 <th className="text-start">Created At</th>
                 <th className="text-start">Action</th>
               </tr>
@@ -105,8 +104,16 @@ function AppDetail({ app, setApp }: AppDetailProps) {
             <tbody>
               <tr>
                 <td>{app.name}</td>
-                <td>{app.apiKey.key}</td>
-                <td>9999</td>
+                <td>{formatAddress(app.apiKey.key)}</td>
+                <td>
+                  {app.whitelistDomains &&
+                    app.whitelistDomains.length > 0 &&
+                    app.whitelistDomains.map((domain, index) => (
+                      <span key={index}>
+                        {domain.domain} {' / '}
+                      </span>
+                    ))}
+                </td>
                 <td>{app.createdAt}</td>
                 <td className="flex space-x-2">
                   <Button white onClick={handleModalOpenId}>

@@ -7,11 +7,12 @@ html,
 body,
 #root,
 .app {
-  /* background-color: black; */
+  /* background-color: #334055; */
   height: 100%;
   width: 100%;
   font-family: 'DM Sans', sans-serif;
   @apply text-white;
+  @apply bg-primary;
 }
 
 /* width */

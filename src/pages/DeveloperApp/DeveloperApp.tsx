@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getAppByAppId } from '~/api/developer/app.developer.api';
 import Loading from '~/components/Loading';
-import Header from '~/pages/Dashboard/Header';
-import AppDetail, { AppDetailType } from './AppDetail';
+import AppDetail from './AppDetail';
+import { AppDetailInterface } from '~/api/interfaces/app.interface';
+import Box from '~/components/Box';
+
 function DeveloperApp() {
-  const [app, setApp] = useState<AppDetailType>();
+  const [app, setApp] = useState<AppDetailInterface>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { id } = useParams();
@@ -28,8 +30,7 @@ function DeveloperApp() {
   }
   return (
     <div>
-      <Header />
-      {isLoading ? <Loading /> : <AppDetail app={app} setApp={setApp} />}
+      <Box>{isLoading ? <Loading /> : <AppDetail app={app} setApp={setApp} />}</Box>
       <span>{errorMessage}</span>
     </div>
   );

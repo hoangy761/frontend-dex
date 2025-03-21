@@ -29,20 +29,34 @@ const User = () => {
             interactive
             onClickOutside={() => setOpenTippy(false)}
             content={
-              <div className="box rounded-md z-200 bg-white">
-                <Button icon={<Copy01Icon />} white onClick={handleCopyAdress} className="bg-white-3 rounded-t-md">
+              <div className="rounded-md z-200 bg-white w-full">
+                <Button
+                  large
+                  icon={<Copy01Icon />}
+                  white
+                  onClick={handleCopyAdress}
+                  className="bg-white-3 rounded-t-md"
+                >
                   Copy address
                 </Button>
                 <Button icon={<Search01Icon />} white onClick={handleCopyAdress} large className="bg-white-3">
                   View explorer
                 </Button>
-                <Button icon={<Logout04Icon />} white onClick={disconnectWallet} className="bg-white-3 rounded-b-md">
+                <Button
+                  icon={<Logout04Icon />}
+                  white
+                  onClick={disconnectWallet}
+                  large
+                  className="bg-white-3 rounded-b-md"
+                >
                   Disconnected
                 </Button>
               </div>
             }
+            className="w-full"
           >
             <Button
+              large
               white
               icon={<Wallet01Icon />}
               iconRight={
@@ -61,6 +75,7 @@ const User = () => {
           </Tippy>
         ) : (
           <Button
+            large
             white
             icon={<Wallet01Icon />}
             onClick={() => {
@@ -72,7 +87,7 @@ const User = () => {
           </Button>
         )
       ) : (
-        <Button white icon={<Wallet01Icon />} onClick={openModal} roundedMd>
+        <Button large white icon={<Wallet01Icon />} onClick={openModal} roundedMd>
           Login with wallet
         </Button>
       )}

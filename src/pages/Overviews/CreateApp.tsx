@@ -25,6 +25,7 @@ function CreateApp() {
     try {
       // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
       const response = await createApiKey({ name, description });
+      setIsModalOpen(false);
       showToast.updateSucess(_toastId, 'Create app successfully!!!!');
     } catch (error) {
       showToast.updateError(_toastId, 'Create app failed!!!!');

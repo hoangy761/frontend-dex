@@ -6,6 +6,7 @@ export default {
       colors: {
         white: '#FFFFFF',
         black: '#111112',
+        primary: '#334055',
         'white-1': '#757575',
         'white-3': '#D9D9D9',
         'black-1': '#0A0A0A',
@@ -25,6 +26,9 @@ export default {
         xs: '480px', //mobile
         sm: '768px', //mobile model ip11
         md: '1060px', // table && laptop ipad
+      },
+      padding: {
+        '1/2': '0.1rem',
       },
     },
   },

@@ -35,3 +35,13 @@ export async function updateAppByAppId(_id: string, _body: UpdateAppInterface) {
   const res: ResAxiosCustom = await axiosAuthenticated.post(`${SERVER_URL}/developer/apps/${_id}`, _body);
   return res;
 }
+
+export async function getAppsByDeveloper(page: number, limit: number) {
+  const res: ResAxiosCustom = await axiosAuthenticated.get(`${SERVER_URL}/developer/apps`, {
+    params: {
+      page,
+      limit,
+    },
+  });
+  return res;
+}

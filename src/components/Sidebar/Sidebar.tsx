@@ -25,7 +25,7 @@ interface routeNav {
 }
 const Sidebar = () => {
   const routesSidebar: routeNav[] = [
-    { to: '/dashboard', name: 'Dashboard', icon: <CodeFolderIcon /> },
+    { to: '/overviews', name: 'Overviews', icon: <CodeFolderIcon /> },
     { to: '/stats', name: 'Stats', icon: <AnalysisTextLinkIcon /> },
   ];
   const routesSidebarBottom: routeNav[] = [
@@ -34,9 +34,9 @@ const Sidebar = () => {
   ];
   const path = useLocation();
   return (
-    <nav className="bg-black m-1 rounded-md px-4 flex flex-col justify-between py-4">
+    <nav className="h-full flex flex-col justify-between ">
       <div className="space-y-4">
-        <Button icon={<img src="logo-text.svg" width={200} alt="logo" />} to="/"></Button>
+        <Button className="h-20 w-60" icon={<img src="logo-text.svg" width={200} alt="logo" />} to="/"></Button>
         <ul className="flex flex-col">
           {routesSidebar.map((route, index) => (
             <li key={index}>
@@ -67,7 +67,9 @@ const Sidebar = () => {
             </li>
           ))}
         </ul>
-        <User />
+        <div className=" justify-center flex">
+          <User />
+        </div>
         <Footer />
       </div>
     </nav>
